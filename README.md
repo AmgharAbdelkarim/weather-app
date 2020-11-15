@@ -1,7 +1,7 @@
 # Weather-App
 
 ## Introduction
-thi is  Weather Application Develop with Reactjs  
+This is  Weather Application Develop with Reactjs  
 
 
 ## Usage
