@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-import reducer from '../reducer/locationreducer';
+import reducer from '../reducer/LocationReducer';
 const initialValue = {
   lon: '',
   lat: '',

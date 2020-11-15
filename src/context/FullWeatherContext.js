@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-import { FullWeatherReducer } from '../reducer/fullweatherreducer';
+import { FullWeatherReducer } from '../reducer/FullWeatherReducer';
 
 const initialValue = {
   data: null,
