@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Card from '../../Components/Card-xs-4';
 import { getMinutes, getHours } from '../../utils';
+import {
+  FullWeatherContext,
+} from '../../context/FullWeatherContext';
 
-const Weather = ({ weather }) => {
-  const { temp, pressure, sunrise, humidity, wind_speed, sunset } = weather;
+const Weather = () => {
+  
+  const {current} = useContext(FullWeatherContext); 
+
+  const { temp, pressure, sunrise, humidity, wind_speed, sunset } = current;
   return (
     <React.Fragment>
       <Card

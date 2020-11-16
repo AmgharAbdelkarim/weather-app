@@ -6,18 +6,32 @@ export const Wrapper = styled(Box)`
   background-image: url(${BackgroundImage});
   height: 100vh;
   background-size: cover;
-  padding: 16px;
+  padding: 16px 20px;
 `;
 
 export const ContentWrapper = styled(Grid)`
-  height: 100%;
+  /* height: 100%; */
 `;
 
 export const StyledTopography = styled(Typography)`
-  font-size: 23px !important;
+  font-size: 26px !important;
   color: #fff;
-  font-weight: 400;
+  font-weight: bold !important;
+  padding: 5px 10px;
 `;
+export const FeelsLikeTopography = styled(Typography)`
+  font-size: 35px !important;
+  color: #fff;
+  font-weight: bold !important;
+`;
+
 export const StyledImage = styled.img`
+  height:120px;
+  width:120px;
   float: right;
 `;
+
+export const FullHeightGrid = styled(Grid)`
+  height: 100%;
+`;
+

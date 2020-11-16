@@ -14,7 +14,7 @@ import {
 } from '../../context/FullWeatherContext';
 import { getFullWeather, getLocationPlace, getLocation } from '../../actions';
 import getCurrentLocation from '../../utils/GetCurrentLocationApi';
-import { Wrapper, ContentWrapper, StyledTopography } from './styles';
+import { Wrapper, ContentWrapper, StyledTopography  , FullHeightGrid} from './styles';
 
 const Home = () => {
   const [city, setCity] = useState('');
@@ -45,8 +45,8 @@ const Home = () => {
     <React.Fragment>
       <Wrapper>
         <StyledTopography variant="h1">WEATHER APP</StyledTopography>
-        <ContentWrapper container spacing={4}>
-          <Grid xs={12} item>
+        <ContentWrapper container direction="column" spacing={3} >
+          <Grid xs item>
             <input
               type="text"
               value={city}
@@ -55,33 +55,33 @@ const Home = () => {
             />{' '}
             <button onClick={() => submit()}>submit</button>
           </Grid>
-          <Grid xs={12} item>
-            <StyledTopography variant="h1">
+          <Grid xs item>
+            <StyledTopography >
               {LocationConsumer.city}
             </StyledTopography>
           </Grid>
-          <Grid xs={12} item>
-            <Grid container>
+          <Grid xs item>
+          {fullWeatherConsumer.current && (
+            <FullHeightGrid alignItems="center" container>
               <Grid xs={6} item>
-                {fullWeatherConsumer.data && (
-                  <Box weather={fullWeatherConsumer.data} />
-                )}
+                  <Box  />
+               
               </Grid>
               <Grid xs={6} item>
-                {fullWeatherConsumer.data && (
-                  <Weather weather={fullWeatherConsumer.data.current} />
-                )}
+                  <Weather  />
+                
               </Grid>
-            </Grid>
+              </FullHeightGrid>
+              )}
           </Grid>
-          <Grid xs={12} item>
-            {fullWeatherConsumer.data && (
-              <WeatherHourly weather={fullWeatherConsumer.data.hourly} />
+          <Grid xs item>
+            {fullWeatherConsumer.hourly.length > 0 && (
+              <WeatherHourly  />
             )}
           </Grid>
-          <Grid xs={12} item>
-            {fullWeatherConsumer.data && (
-              <WeatherDaily weather={fullWeatherConsumer.data.daily} />
+          <Grid xs item>
+            {fullWeatherConsumer.daily.length > 0 && (
+              <WeatherDaily  />
             )}
           </Grid>
         </ContentWrapper>

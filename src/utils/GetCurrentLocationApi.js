@@ -1,15 +1,15 @@
 import axios from 'axios';
 
-const getCurrentLocation = (getLocation, dispatch3) =>
+const getCurrentLocation = (cb, dispatch) =>
   navigator.geolocation.getCurrentPosition(
     (s) => {
       var crd = s.coords;
-      getLocation(dispatch3, crd.latitude, crd.longitude);
+      cb(dispatch, crd.latitude, crd.longitude);
     },
     () => {
       axios
         .get('http://ip-api.com/json')
-        .then((r) => getLocation(dispatch3, r.data.lat, r.data.lon));
+        .then((r) => cb(dispatch, r.data.lat, r.data.lon));
     },
     {
       enableHighAccuracy: true,

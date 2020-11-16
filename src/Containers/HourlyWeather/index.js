@@ -1,19 +1,25 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Grid } from '@material-ui/core';
 import CardComponent from '../../Components/Card-xs-12';
 import { getDays, getMonths, getHours } from '../../utils';
 import { StyledTopography } from './styles';
+import {
+  FullWeatherContext,
+} from '../../context/FullWeatherContext';
 
-const WeatherHourly = ({ weather }) => {
+const WeatherHourly = () => {
+
+  const { hourly } = useContext(FullWeatherContext); 
+  
   return (
-    <React.Fragment>
+  <React.Fragment>
+   { hourly &&  (<React.Fragment>
       <StyledTopography>Hourly Forecast</StyledTopography>
       <Grid container spacing={1}>
-        {weather
+        {hourly
           .filter((_, index) => index !== 0 && index % 3 === 0 && index < 27)
-          .map((day) => (
-            <React.Fragment key={day}>
-              <Grid xs item>
+          .map((day , index) => (
+              <Grid xs item key={index}>
                 <CardComponent
                   date={`${getDays(day.dt)} ${getMonths(day.dt)}`}
                   day={`${getHours(day.dt)}:00`}
@@ -22,10 +28,11 @@ const WeatherHourly = ({ weather }) => {
                   humidity={day.humidity}
                 />
               </Grid>
-            </React.Fragment>
           ))}
       </Grid>
-    </React.Fragment>
+    </React.Fragment>)
+      }
+      </React.Fragment>
   );
 };
 

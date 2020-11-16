@@ -1,9 +1,16 @@
-export const FullWeatherReducer = (state, action) => {
+
+const initialState = {
+  hourly: [],
+  daily: [],
+  Current: [],
+};
+
+export const FullWeatherReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'get':
       return {
         ...state,
-        data: action.payload,
+        ...action.payload,
       };
     default: {
       return {

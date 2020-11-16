@@ -1,14 +1,17 @@
 import React, { createContext, useReducer } from 'react';
 import { FullWeatherReducer } from '../reducer/FullWeatherReducer';
 
-const initialValue = {
-  data: null,
+const initialState = {
+  hourly: [],
+  daily: [],
+  Current: [],
 };
+
 const FullWeatherContext = createContext();
 const DispatchFullWeather = createContext();
 
 const FullWeatherProvider = (props) => {
-  const [state, dispatch] = useReducer(FullWeatherReducer, initialValue);
+  const [state, dispatch] = useReducer(FullWeatherReducer, initialState);
 
   return (
     <FullWeatherContext.Provider value={state}>
