@@ -1,32 +1,5 @@
 import axios from 'axios';
 
-export const getWeather = async (dispatch, city) => {
-    try {
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=a5a7de9f182eacf80fdab5f94e90ebbe`;
-
-        const { data } = await axios.get(url);
-        
-        const { hourly, daily, current } = data;
-
-
-        return (
-            dispatch({
-                type: "get",
-                payload: { hourly, daily, current }
-            })
-        );
-    }
-    catch {
-        return (
-            dispatch({
-                type: "error"
-            })
-        );
-    }
-    
-
-};
-
 export const getFullWeather = async (dispatch, lat, lon) => {
     try {
         const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=a5a7de9f182eacf80fdab5f94e90ebbe`;
@@ -118,8 +91,7 @@ export const getLatAndLonFromCity = async (dispatch, searchedCity) => {
         const { data } = await axios.get(url);
         const { lng: lon, lat } = data.results[0].geometry;
         
-        const city = data.results[0].formatted.split(',')
-        .filter((_, i) => i != 1).join(', ');
+        const city = data.results[0].components.city + ", " + data.results[0].components["ISO_3166-1_alpha-2"];
         return (
             dispatch({
                 type: "GET_CREDENTIAL_SUCCESS",
