@@ -7,25 +7,25 @@ import {
   FullWeatherContext,
 } from '../../context/FullWeatherContext';
 
-const WeatherHourly = () => {
+const HourlyWeather = () => {
 
-  const { hourly } = useContext(FullWeatherContext); 
+  const { hourlyWeather } = useContext(FullWeatherContext); 
   
   return (
   <React.Fragment>
-   { hourly &&  (<React.Fragment>
+   { hourlyWeather &&  (<React.Fragment>
       <StyledTopography>Hourly Forecast</StyledTopography>
       <Grid container spacing={1}>
-        {hourly
+        {hourlyWeather
           .filter((_, index) => index !== 0 && index % 3 === 0 && index < 27)
-          .map((day , index) => (
+          .map((weather , index) => (
               <Grid xs item key={index}>
                 <CardComponent
-                  date={`${getDays(day.dt)} ${getMonths(day.dt)}`}
-                  day={`${getHours(day.dt)}:00`}
-                  icon={day.weather[0].icon}
-                  temp={day.temp}
-                  humidity={day.humidity}
+                  date={`${getDays(weather.date)} ${getMonths(weather.date)}`}
+                  day={`${getHours(weather.date)}:00`}
+                  icon={weather.icon}
+                  temp={weather.temp}
+                  humidity={weather.humidity}
                 />
               </Grid>
           ))}
@@ -36,4 +36,4 @@ const WeatherHourly = () => {
   );
 };
 
-export default WeatherHourly;
+export default HourlyWeather;

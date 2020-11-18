@@ -2,10 +2,12 @@ import React, { createContext, useReducer } from 'react';
 import { FullWeatherReducer } from '../reducer/FullWeatherReducer';
 
 const initialState = {
-  hourly: [],
-  daily: [],
-  Current: [],
-};
+  dailyWeather: [],
+  hourlyWeather: [],
+  currentWeather: [],
+  errorMessage: null,
+  isLoading: true,
+}
 
 const FullWeatherContext = createContext();
 const DispatchFullWeather = createContext();

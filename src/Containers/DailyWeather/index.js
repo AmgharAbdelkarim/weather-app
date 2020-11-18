@@ -7,23 +7,23 @@ import {
   FullWeatherContext,
 } from '../../context/FullWeatherContext';
 
-const WeatherDaily = () => {
+const DailyWeather = () => {
 
-  const { daily } = useContext(FullWeatherContext); 
-
+  const { dailyWeather } = useContext(FullWeatherContext); 
+  
   return (
     <React.Fragment>
-      { daily && <React.Fragment>
+      { dailyWeather && <React.Fragment>
         <StyledTopography>Daily Forecast</StyledTopography>
         <Grid container spacing={1}>
-          {daily.map((day , index) => (
+          {dailyWeather.map((weather , index) => (
               <Grid xs item key={index}>
                 <CardComponent
-                  date={`${getDays(day.dt)} ${getMonths(day.dt)}`}
-                  day={getDay(day.dt)}
-                  icon={day.weather[0].icon}
-                  temp={day.temp.day}
-                  humidity={day.humidity}
+                  date={`${getDays(weather.date)} ${getMonths(weather.date)}`}
+                  day={getDay(weather.date)}
+                  icon={weather.icon}
+                  temp={weather.temp}
+                  humidity={weather.humidity}
                 />
               </Grid>
           ))}
@@ -33,4 +33,4 @@ const WeatherDaily = () => {
   );
 };
 
-export default WeatherDaily;
+export default DailyWeather;

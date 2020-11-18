@@ -6,21 +6,21 @@ import {
 } from '../../context/FullWeatherContext';
 
 const Box = () => {
-  const { current } = useContext(FullWeatherContext); 
-  
+  const { currentWeather } = useContext(FullWeatherContext); 
+  const { feelsLike, description, weatherIcon } = currentWeather;
   return (
   <React.Fragment>
     <FullHeightGrid container alignItems="center" >
       <Grid item xs={6}>
         <StyledImage
           alt=""
-          src={`https://openweathermap.org/img/w/${current.weather[0].icon}.png`}
+          src={`https://openweathermap.org/img/w/${weatherIcon}.png`}
         />
       </Grid>
       <Grid item xs={6}>
-        <FeelsLikeTopography>{current.feels_like}°</FeelsLikeTopography>
+        <FeelsLikeTopography>{feelsLike}°</FeelsLikeTopography>
         <StyledTopography >
-          {current.weather[0].description}
+          {description}
         </StyledTopography>
       </Grid>
     </FullHeightGrid>

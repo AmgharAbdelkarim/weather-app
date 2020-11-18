@@ -1,11 +1,15 @@
 const LocationReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'get':
+    case 'GET_CREDENTIAL_SUCCESS':
       return {
         ...state,
-        lon: action.payload.long,
-        lat: action.payload.lat,
-        city: action.payload.city,
+        ...action.payload,
+        errorMessage: null
+      };
+    case 'GET_CREDENTIAL_FAILED':
+      return {
+        ...state,
+        errorMessage: 'Something Wrong'
       };
     default: {
       return {

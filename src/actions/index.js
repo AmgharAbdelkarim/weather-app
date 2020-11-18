@@ -34,18 +34,41 @@ export const getFullWeather = async (dispatch, lat, lon) => {
         const { data } = await axios.get(url);
 
         const { hourly, daily, current } = data;
+        
+        const dailyWeather = daily.map(day => ({
+            date: day.dt,
+            icon: day.weather[0].icon,
+            temp: day.temp.day,
+            humidity: day.humidity,
+        }));
 
+        const hourlyWeather = hourly.map(day => ({
+            date: day.dt,
+            icon: day.weather[0].icon,
+            temp: day.temp,
+            humidity: day.humidity,
+        }));
+
+        const { temp, pressure, sunrise : sunRise, humidity, wind_speed : windSpeed, sunset : sunSet } = current;
+
+        const currentWeather = {
+            feelsLike: current.feels_like,
+            description: current.weather[0].description,
+            weatherIcon: current.weather[0].icon,
+            ...{ temp, pressure,  sunRise, humidity,  windSpeed, sunSet }
+        }
         return (
             dispatch({
-                type: "get",
-                payload: { hourly, daily, current }
+                type: "GET_FULL_WEATHER_SUCCESS",
+                payload: { dailyWeather, hourlyWeather, currentWeather  }
             })
         )
     }
     catch {
         return (
             dispatch({
-                type: "error"
+                type: "GET_FULL_WEATHER_FAILED",
+                payload : "Something Wrong"
             })
         )
     }
@@ -54,13 +77,13 @@ export const getFullWeather = async (dispatch, lat, lon) => {
 };
 
 
-export const getLocation = async (dispatch, lati, lon) => {
+export const getCityFromLatAndLon = async (dispatch, latitude, Long) => {
     try {
-        const url = `https://api.opencagedata.com/geocode/v1/json?q=${lati}+${lon}&key=c5cd22f2a20d4389ae5fb739fc21a1f0`;
+        const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${Long}&key=c5cd22f2a20d4389ae5fb739fc21a1f0`;
 
         const { data } = await axios.get(url);
 
-        const { lng  : long, lat } = data.results[0].geometry;
+        const { lng  : lon, lat } = data.results[0].geometry;
         const city = data.results[0].formatted.split(',')
         .splice(0)
         .join('')
@@ -70,9 +93,9 @@ export const getLocation = async (dispatch, lati, lon) => {
 
         return (
             dispatch({
-                type: "get",
+                type: "GET_CREDENTIAL_SUCCESS",
                 payload: {
-                    long,  lat, city
+                    lon,  lat, city
                         
                 }
             })
@@ -81,26 +104,27 @@ export const getLocation = async (dispatch, lati, lon) => {
     catch {
         return (
             dispatch({
-                type: "error"
+                type: "GET_CREDENTIAL_FAILED"
             })
         )
     }
     
 
 };
-export const getLocationPlace = async (dispatch, searchedCity) => {
+export const getLatAndLonFromCity = async (dispatch, searchedCity) => {
     try {
         const url = `https://api.opencagedata.com/geocode/v1/json?q=${searchedCity}&key=c5cd22f2a20d4389ae5fb739fc21a1f0`;
 
         const { data } = await axios.get(url);
-        const { lng : long , lat } = data.results[0].geometry;
+        const { lng: lon, lat } = data.results[0].geometry;
+        
         const city = data.results[0].formatted.split(',')
         .filter((_, i) => i != 1).join(', ');
         return (
             dispatch({
-                type: "get",
+                type: "GET_CREDENTIAL_SUCCESS",
                 payload: {
-                    long,  lat, city
+                    lon,  lat, city
                 }
             })
         )
@@ -108,7 +132,7 @@ export const getLocationPlace = async (dispatch, searchedCity) => {
     catch {
         return (
             dispatch({
-                type: "error"
+                type: "GET_CREDENTIAL_FAILED"
             })
         );
     }

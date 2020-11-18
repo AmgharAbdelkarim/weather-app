@@ -4,6 +4,7 @@ const initialValue = {
   lon: '',
   lat: '',
   city: '',
+  errorMessage : null,
 };
 const locationContext = createContext();
 const dispatchLocation = createContext();

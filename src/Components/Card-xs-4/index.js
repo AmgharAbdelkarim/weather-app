@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import { ItemsWrapper, ContentWrapper, StyledTopography } from './styles';
 
-const Card = ({ temp, pressure, sunrise, humidity, windSpeed, sunset }) => {
+const Card = ({ temp, pressure, sunRise, humidity, windSpeed, sunSet }) => {
   return (
     <ItemsWrapper>
       <ContentWrapper alignItems="center" spacing={3} container>
@@ -16,7 +16,7 @@ const Card = ({ temp, pressure, sunrise, humidity, windSpeed, sunset }) => {
         </Grid>
         <Grid xs={4} item>
           <StyledTopography>Sunrise</StyledTopography>
-          <StyledTopography>{sunrise}</StyledTopography>
+          <StyledTopography>{sunRise}</StyledTopography>
         </Grid>
         <Grid xs={4} item>
           <StyledTopography>Humidity</StyledTopography>
@@ -28,7 +28,7 @@ const Card = ({ temp, pressure, sunrise, humidity, windSpeed, sunset }) => {
         </Grid>
         <Grid xs={4} item>
           <StyledTopography>Sunset</StyledTopography>
-          <StyledTopography>{sunset}</StyledTopography>
+          <StyledTopography>{sunSet}</StyledTopography>
         </Grid>
       </ContentWrapper>
     </ItemsWrapper>

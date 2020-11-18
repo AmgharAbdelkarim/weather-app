@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
-import WeatherDaily from '../DailyWeather';
-import WeatherHourly from '../HourlyWeather';
-import Weather from '../CurrentWeather';
+import DailyWeather from '../DailyWeather';
+import HourlyWeather from '../HourlyWeather';
+import CurrentWeather from '../CurrentWeather';
 import Box from './box';
 import { Grid } from '@material-ui/core';
 import {
@@ -12,9 +12,10 @@ import {
   FullWeatherContext,
   DispatchFullWeather,
 } from '../../context/FullWeatherContext';
-import { getFullWeather, getLocationPlace, getLocation } from '../../actions';
+import { getFullWeather, getLatAndLonFromCity, getCityFromLatAndLon } from '../../actions';
 import getCurrentLocation from '../../utils/GetCurrentLocationApi';
-import { Wrapper, ContentWrapper, StyledTopography  , FullHeightGrid} from './styles';
+import { Wrapper, ContentWrapper, StyledTopography, FullHeightGrid } from './styles';
+
 
 const Home = () => {
   const [city, setCity] = useState('');
@@ -26,11 +27,11 @@ const Home = () => {
   const useDispatchFullWeather = useContext(DispatchFullWeather);
 
   const submit = () => {
-    getLocationPlace(useDispatchLocation, city);
+    getLatAndLonFromCity(useDispatchLocation, city);
   };
 
   useEffect(() => {
-    getCurrentLocation(getLocation, useDispatchLocation);
+    getCurrentLocation(getCityFromLatAndLon, useDispatchLocation);
   }, [useDispatchLocation]);
 
   useEffect(() => {
@@ -60,30 +61,30 @@ const Home = () => {
               {LocationConsumer.city}
             </StyledTopography>
           </Grid>
-          <Grid xs item>
-          {fullWeatherConsumer.current && (
-            <FullHeightGrid alignItems="center" container>
-              <Grid xs={6} item>
-                  <Box  />
-               
+          {
+          !fullWeatherConsumer.isLoading ?  
+            <React.Fragment>
+              <Grid xs item>        
+                <FullHeightGrid alignItems="center" container>
+                      <Grid xs={6} item>
+                          <Box  />               
+                      </Grid>
+                      <Grid xs={6} item>
+                          <CurrentWeather />               
+                      </Grid>
+                </FullHeightGrid>
               </Grid>
-              <Grid xs={6} item>
-                  <Weather  />
-                
+              <Grid xs item>           
+                <HourlyWeather  />          
               </Grid>
-              </FullHeightGrid>
-              )}
-          </Grid>
-          <Grid xs item>
-            {fullWeatherConsumer.hourly.length > 0 && (
-              <WeatherHourly  />
-            )}
-          </Grid>
-          <Grid xs item>
-            {fullWeatherConsumer.daily.length > 0 && (
-              <WeatherDaily  />
-            )}
-          </Grid>
+              <Grid xs item>
+                <DailyWeather />
+              </Grid>
+            </React.Fragment>
+              :
+              <React.Fragment>isLoading ...</React.Fragment> 
+          }
+          
         </ContentWrapper>
       </Wrapper>
     </React.Fragment>

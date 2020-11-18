@@ -4,7 +4,7 @@ import BackgroundImage from '../../utils/images/2850815.246c1201.jpg';
 
 export const Wrapper = styled(Box)`
   background-image: url(${BackgroundImage});
-  height: 100vh;
+  min-height: 900px;
   background-size: cover;
   padding: 16px 20px;
 `;

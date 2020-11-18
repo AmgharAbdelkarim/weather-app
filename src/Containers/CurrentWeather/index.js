@@ -5,23 +5,23 @@ import {
   FullWeatherContext,
 } from '../../context/FullWeatherContext';
 
-const Weather = () => {
+const CurrentWeather = () => {
   
-  const {current} = useContext(FullWeatherContext); 
+  const {currentWeather} = useContext(FullWeatherContext); 
 
-  const { temp, pressure, sunrise, humidity, wind_speed, sunset } = current;
+  const { temp, pressure, sunRise, humidity, windSpeed,  sunSet } = currentWeather;
   return (
     <React.Fragment>
       <Card
         temp={temp}
         pressure={pressure}
-        sunrise={`${getHours(sunrise)}:${getMinutes(sunrise)}`}
+        sunRise={`${getHours(sunRise)}:${getMinutes(sunRise)}`}
         humidity={humidity}
-        windSpeed={wind_speed}
-        sunset={`${getHours(sunset)}:${getMinutes(sunset)}`}
+        windSpeed={windSpeed}
+        sunSet={`${getHours(sunSet)}:${getMinutes(sunSet)}`}
       />
     </React.Fragment>
   );
 };
 
-export default Weather;
+export default CurrentWeather;
