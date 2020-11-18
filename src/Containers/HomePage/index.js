@@ -4,6 +4,7 @@ import HourlyWeather from '../HourlyWeather';
 import CurrentWeather from '../CurrentWeather';
 import Box from './box';
 import { Grid } from '@material-ui/core';
+import Form from '../../Components/Form';
 import {
   locationContext,
   dispatchLocation,
@@ -14,8 +15,8 @@ import {
 } from '../../context/FullWeatherContext';
 import { getFullWeather, getLatAndLonFromCity, getCityFromLatAndLon } from '../../actions';
 import getCurrentLocation from '../../utils/GetCurrentLocationApi';
-import { Wrapper, ContentWrapper, StyledTopography, FullHeightGrid } from './styles';
-
+import { Wrapper, StyledTopography, FullHeightGrid , GridAlignCenter , ContentWrapper , LinkedInLink , GithubLink } from './styles';
+import { linkedInUrl, githubUrl } from "../../utils";
 
 const Home = () => {
   const [city, setCity] = useState('');
@@ -26,7 +27,8 @@ const Home = () => {
   const fullWeatherConsumer = useContext(FullWeatherContext);
   const useDispatchFullWeather = useContext(DispatchFullWeather);
 
-  const submit = () => {
+  const submit = (e) => {
+    e.preventDefault();
     getLatAndLonFromCity(useDispatchLocation, city);
   };
 
@@ -45,25 +47,26 @@ const Home = () => {
   return (
     <React.Fragment>
       <Wrapper>
-        <StyledTopography variant="h1">WEATHER APP</StyledTopography>
-        <ContentWrapper container direction="column" spacing={3} >
-          <Grid xs item>
-            <input
-              type="text"
-              value={city}
-              placeholder="insert your cities"
-              onChange={(e) => setCity(e.target.value)}
-            />{' '}
-            <button onClick={() => submit()}>submit</button>
+        <Grid container>
+          <Grid item xs={6}>
+        <StyledTopography variant="h1">WEATHER APP</StyledTopography></Grid>
+          <Grid item xs={6}>
+            <GithubLink onClick={() => window.open(githubUrl)} />
+            <LinkedInLink onClick={()=>window.open(linkedInUrl)} />
           </Grid>
-          <Grid xs item>
-            <StyledTopography >
-              {LocationConsumer.city}
-            </StyledTopography>
-          </Grid>
+        </Grid>
+        <ContentWrapper container direction="column" justify="center" spacing={3} >
+          <GridAlignCenter xs={6} item>
+            <Form submit={submit}  changeHandler={(e) => setCity(e.target.value)}  />
+          </GridAlignCenter>
           {
           !fullWeatherConsumer.isLoading ?  
             <React.Fragment>
+              <Grid item>
+                <StyledTopography >
+                  {LocationConsumer.city}
+                </StyledTopography>
+              </Grid>
               <Grid xs item>        
                 <FullHeightGrid alignItems="center" container>
                       <Grid xs={6} item>
@@ -81,8 +84,8 @@ const Home = () => {
                 <DailyWeather />
               </Grid>
             </React.Fragment>
-              :
-              <React.Fragment>isLoading ...</React.Fragment> 
+              : city ? 
+              <React.Fragment>isLoading ...</React.Fragment>  : null
           }
           
         </ContentWrapper>

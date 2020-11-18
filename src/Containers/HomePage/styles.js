@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { Box, Grid, Typography } from '@material-ui/core';
 import BackgroundImage from '../../utils/images/2850815.246c1201.jpg';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
 export const Wrapper = styled(Box)`
   background-image: url(${BackgroundImage});
@@ -9,8 +11,13 @@ export const Wrapper = styled(Box)`
   padding: 16px 20px;
 `;
 
+export const GridAlignCenter = styled(Grid)`
+align-self : center;
+width:100%;
+`;
+
 export const ContentWrapper = styled(Grid)`
-  /* height: 100%; */
+min-height:600px;
 `;
 
 export const StyledTopography = styled(Typography)`
@@ -35,3 +42,13 @@ export const FullHeightGrid = styled(Grid)`
   height: 100%;
 `;
 
+export const GithubLink = styled(GitHubIcon)`
+  float : right;
+  padding : 0px 10px;
+  cursor: pointer;
+`;
+export const LinkedInLink = styled(LinkedInIcon)`
+  float : right;
+  padding : 0px 10px;
+  cursor: pointer;
+`;

@@ -44,3 +44,6 @@ export const getDay = (date) => {
   ];
   return days[new Date(date * 1000).getDay()];
 };
+
+export const linkedInUrl = 'https://www.linkedin.com/in/amgharabdelkarim/';
+export const githubUrl = 'https://github.com/AmgharAbdelkarim/weather-app';

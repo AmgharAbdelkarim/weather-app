@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 export const getFullWeather = async (dispatch, lat, lon) => {
+    
     try {
-        const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=a5a7de9f182eacf80fdab5f94e90ebbe`;
+        const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.REACT_APP_API_KEY}`;
 
         const { data } = await axios.get(url);
 
@@ -51,8 +52,9 @@ export const getFullWeather = async (dispatch, lat, lon) => {
 
 
 export const getCityFromLatAndLon = async (dispatch, latitude, Long) => {
+   
     try {
-        const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${Long}&key=c5cd22f2a20d4389ae5fb739fc21a1f0`;
+        const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${Long}&key=${process.env.REACT_APP_KEY}`;
 
         const { data } = await axios.get(url);
 
@@ -86,7 +88,7 @@ export const getCityFromLatAndLon = async (dispatch, latitude, Long) => {
 };
 export const getLatAndLonFromCity = async (dispatch, searchedCity) => {
     try {
-        const url = `https://api.opencagedata.com/geocode/v1/json?q=${searchedCity}&key=c5cd22f2a20d4389ae5fb739fc21a1f0`;
+        const url = `https://api.opencagedata.com/geocode/v1/json?q=${searchedCity}&key=${process.env.REACT_APP_KEY}`;
 
         const { data } = await axios.get(url);
         const { lng: lon, lat } = data.results[0].geometry;
